@@ -10,6 +10,7 @@ import com.myapp.dto.PageParams;
 import com.myapp.dto.ProductDTO;
 import com.myapp.service.ProductService;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +30,13 @@ public class UserProductController {
         this.productService = productService;
     }
   
-    
+      @RequestMapping(method = RequestMethod.GET, path = "/{userId:\\d+}/products")
+    public List<Product> list(@PathVariable("userId") Long userId, PageParams pageParams) {
+        return productService.findByUser(userId, pageParams).stream().collect(Collectors.toList());
+    }
+  /*
+       @RequestMapping(method = RequestMethod.GET, path = "/{userId:\\d+}/products")
+    public @ResponseBody List<Product> list(@PathVariable("userId") Long userId, PageParams pageParams) {
+        return productService.findByUser(userId, pageParams).stream().collect(Collectors.toList());
+    }*/
 }

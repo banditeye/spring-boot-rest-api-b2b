@@ -55,7 +55,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByUser(Long userId, PageParams pageParams) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+             User user=userRepository.findOne(userId);
+      return productRepository.findByUser(user).stream().collect(Collectors.toList());
 
     }
 

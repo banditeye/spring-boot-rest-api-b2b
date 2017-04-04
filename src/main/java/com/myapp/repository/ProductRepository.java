@@ -12,12 +12,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
  * @author Kamil
  */
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByUser(Long id, PageParams pageParams);
+   @Query("select u from Product u where u.user = ?1")
+    List<Product> findByUser(User user);
     Optional<Product> findById(Long id);
 }
