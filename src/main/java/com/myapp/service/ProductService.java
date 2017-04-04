@@ -13,6 +13,7 @@ import com.myapp.service.exceptions.NotPermittedException;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 /**
  *
@@ -20,9 +21,10 @@ import org.springframework.data.domain.PageRequest;
  */
 public interface ProductService {
         void delete(Long id) throws NotPermittedException;
-        Page<ProductDTO> findAll(PageRequest pageable);
+        Page<Product> findAll(PageRequest pageable);
         List<Product> findByUser(Long userId, PageParams pageParams);
         List<ProductDTO> findMyProduct(PageParams pageParams);
+        List<Product> findBySubcategory(Long categoryId,PageParams pageParams);
         Product saveMyProduct(ProductParams params);
         Product updateMyProduct(Product product);
         

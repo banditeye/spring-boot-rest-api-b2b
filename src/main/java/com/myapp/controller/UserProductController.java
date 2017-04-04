@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -29,14 +30,14 @@ public class UserProductController {
     public UserProductController(ProductService productService) {
         this.productService = productService;
     }
-  
+  /*
       @RequestMapping(method = RequestMethod.GET, path = "/{userId:\\d+}/products")
     public List<Product> list(@PathVariable("userId") Long userId, PageParams pageParams) {
         return productService.findByUser(userId, pageParams).stream().collect(Collectors.toList());
     }
-  /*
+  */ 
        @RequestMapping(method = RequestMethod.GET, path = "/{userId:\\d+}/products")
     public @ResponseBody List<Product> list(@PathVariable("userId") Long userId, PageParams pageParams) {
         return productService.findByUser(userId, pageParams).stream().collect(Collectors.toList());
-    }*/
+    }
 }

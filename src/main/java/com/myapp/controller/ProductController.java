@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +41,7 @@ public class ProductController {
     
     
         @RequestMapping(method = RequestMethod.GET)
-    public Page<ProductDTO> list(@RequestParam(value = "page", required = false) @Nullable Integer page,
+    public Page<Product> list(@RequestParam(value = "page", required = false) @Nullable Integer page,
                               @RequestParam(value = "size", required = false) @Nullable Integer size) {
         final PageRequest pageable = new PageRequest(
                 Optional.ofNullable(page).orElse(1) - 1,
@@ -55,5 +56,13 @@ public class ProductController {
     }
     
   
+    
+  @RequestMapping(value="{categoryId}", method = RequestMethod.GET)
+  public List<Product> list(@PathVariable("categoryId") Long categoryId,PageParams pageParams){
+      return productService.findBySubcategory(categoryId, pageParams);
+      
+  }
  
+    
+    
 }

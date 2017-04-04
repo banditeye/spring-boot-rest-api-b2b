@@ -8,10 +8,12 @@ package com.myapp.service;
 import com.myapp.Utils;
 import com.myapp.domain.Product;
 import com.myapp.domain.QProduct;
+import com.myapp.domain.Subcategory;
 import com.myapp.domain.User;
 import com.myapp.dto.PageParams;
 import com.myapp.dto.ProductDTO;
 import com.myapp.dto.ProductParams;
+import com.myapp.repository.ProductCustomRepository;
 import com.myapp.repository.ProductRepository;
 import com.myapp.repository.RelationshipRepository;
 import com.myapp.repository.SubcategoryRepository;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -38,38 +41,43 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final RelationshipRepository relationshipRepository;
     private final SubcategoryRepository subcategoryRepository;
+    private final ProductCustomRepository productCustomRepository;
 
+
+  
+
+  
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, SecurityContextService securityContextService, UserRepository userRepository, RelationshipRepository relationshipRepository, SubcategoryRepository subcategoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, SecurityContextService securityContextService, UserRepository userRepository, RelationshipRepository relationshipRepository, SubcategoryRepository subcategoryRepository, ProductCustomRepository productCustomRepository) {
         this.productRepository = productRepository;
         this.securityContextService = securityContextService;
         this.userRepository = userRepository;
         this.relationshipRepository = relationshipRepository;
         this.subcategoryRepository = subcategoryRepository;
+        this.productCustomRepository = productCustomRepository;
     }
 
-    @Override
+      @Override
     public void delete(Long id) throws NotPermittedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public List<Product> findByUser(Long userId, PageParams pageParams) {
-             User user=userRepository.findOne(userId);
-      return productRepository.findByUser(user).stream().collect(Collectors.toList());
+        User user = userRepository.findOne(userId);
+        return productRepository.findByUser(user).stream().collect(Collectors.toList());
 
     }
 
     @Override
     public List<ProductDTO> findMyProduct(PageParams pageParams) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Product saveMyProduct(ProductParams productParams) {
-        Product product=new Product();
-       
-                
+        Product product = new Product();
+
         return securityContextService.currentUser()
                 .map(u -> {
                     product.setUser(u);
@@ -86,19 +94,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDTO> findAll(PageRequest pageable) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Page<Product> findAll(PageRequest pageable) {
+        return productRepository.findAll(pageable);
     }
 
-  
-    
-    
     @Override
     public Product updateMyProduct(Product product) {
-   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-               
-    
-   
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+    }
+
+    @Override
+    public List<Product> findBySubcategory(Long categoryId, PageParams pageParams) {
+        Subcategory subcategory=subcategoryRepository.findOne(categoryId);
+        return productCustomRepository.findBySubcategory(subcategory,pageParams);
     }
 
 }

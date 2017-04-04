@@ -6,6 +6,7 @@
 package com.myapp.repository;
 
 import com.myapp.domain.Product;
+import com.myapp.domain.Subcategory;
 import com.myapp.domain.User;
 import com.myapp.dto.PageParams;
 import java.io.Serializable;
@@ -21,5 +22,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ProductRepository extends JpaRepository<Product, Long> {
    @Query("select u from Product u where u.user = ?1")
     List<Product> findByUser(User user);
+    @Query("select u from Product u where u.subcategory = ?1")
+    List<Product> findBySubcategory(Subcategory subcategory, PageParams pageParams);
     Optional<Product> findById(Long id);
 }
