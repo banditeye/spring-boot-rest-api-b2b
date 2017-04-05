@@ -30,39 +30,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
-     private static final Integer DEFAULT_PAGE_SIZE = 5;
-    
+
+    private static final Integer DEFAULT_PAGE_SIZE = 5;
+
     private final ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-    
-    
-        @RequestMapping(method = RequestMethod.GET)
+
+    @RequestMapping(method = RequestMethod.GET)
     public Page<Product> list(@RequestParam(value = "page", required = false) @Nullable Integer page,
-                              @RequestParam(value = "size", required = false) @Nullable Integer size) {
+            @RequestParam(value = "size", required = false) @Nullable Integer size) {
         final PageRequest pageable = new PageRequest(
                 Optional.ofNullable(page).orElse(1) - 1,
                 Optional.ofNullable(size).orElse(DEFAULT_PAGE_SIZE));
         return productService.findAll(pageable);
     }
-    
 
     @RequestMapping(method = RequestMethod.POST)
     public Product create(@RequestBody ProductParams productParams) {
         return productService.saveMyProduct(productParams);
     }
-    
-  
-    
-  @RequestMapping(value="{categoryId}", method = RequestMethod.GET)
-  public List<Product> list(@PathVariable("categoryId") Long categoryId,PageParams pageParams){
-      return productService.findBySubcategory(categoryId, pageParams);
-      
-  }
- 
-    
-    
+
+    @RequestMapping(value = "{categoryId}", method = RequestMethod.GET)
+    public List<Product> list(@PathVariable("categoryId") Long categoryId, PageParams pageParams) {
+        return productService.findBySubcategory(categoryId, pageParams);
+
+    }
+
 }
