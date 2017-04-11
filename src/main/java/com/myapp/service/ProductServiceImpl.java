@@ -6,6 +6,7 @@
 package com.myapp.service;
 
 import com.myapp.Utils;
+import com.myapp.domain.Category;
 import com.myapp.domain.Product;
 import com.myapp.domain.QProduct;
 import com.myapp.domain.Subcategory;
@@ -13,6 +14,7 @@ import com.myapp.domain.User;
 import com.myapp.dto.PageParams;
 import com.myapp.dto.ProductDTO;
 import com.myapp.dto.ProductParams;
+import com.myapp.repository.CategoryRepository;
 import com.myapp.repository.ProductCustomRepository;
 import com.myapp.repository.ProductRepository;
 import com.myapp.repository.RelationshipRepository;
@@ -41,6 +43,7 @@ public class ProductServiceImpl implements ProductService {
     private final UserRepository userRepository;
     private final RelationshipRepository relationshipRepository;
     private final SubcategoryRepository subcategoryRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductCustomRepository productCustomRepository;
 
 
@@ -48,12 +51,13 @@ public class ProductServiceImpl implements ProductService {
 
   
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, SecurityContextService securityContextService, UserRepository userRepository, RelationshipRepository relationshipRepository, SubcategoryRepository subcategoryRepository, ProductCustomRepository productCustomRepository) {
+     public ProductServiceImpl(ProductRepository productRepository, SecurityContextService securityContextService, UserRepository userRepository, RelationshipRepository relationshipRepository, SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository, ProductCustomRepository productCustomRepository) {
         this.productRepository = productRepository;
         this.securityContextService = securityContextService;
         this.userRepository = userRepository;
         this.relationshipRepository = relationshipRepository;
         this.subcategoryRepository = subcategoryRepository;
+        this.categoryRepository = categoryRepository;
         this.productCustomRepository = productCustomRepository;
     }
 
@@ -61,6 +65,8 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) throws NotPermittedException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+  
     
     @Override
     public List<Product> findByUser(Long userId, PageParams pageParams) {
@@ -70,8 +76,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> findMyProduct(PageParams pageParams) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Product> findMyProduct(PageParams pageParams) {
+        return securityContextService.currentUser().
+                map(u -> findByUser(u.getId(), pageParams))
+                .orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -105,9 +113,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findBySubcategory(Long categoryId, PageParams pageParams) {
-        Subcategory subcategory=subcategoryRepository.findOne(categoryId);
+    public List<Product> findBySubcategory(Long subCategoryId, PageParams pageParams) {
+        Subcategory subcategory=subcategoryRepository.findOne(subCategoryId);
         return productCustomRepository.findBySubcategory(subcategory,pageParams);
+    }
+
+    @Override
+    public List<Product> findByCategory(Long categoryId, PageParams pageParams) {
+       Category category=categoryRepository.findOne(categoryId);
+        return productCustomRepository.findByCategory(category,pageParams);
     }
 
 }

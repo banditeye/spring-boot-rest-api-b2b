@@ -54,9 +54,15 @@ public class ProductController {
         return productService.saveMyProduct(productParams);
     }
 
-    @RequestMapping(value = "{categoryId}", method = RequestMethod.GET)
-    public List<Product> list(@PathVariable("categoryId") Long categoryId, PageParams pageParams) {
-        return productService.findBySubcategory(categoryId, pageParams);
+    @RequestMapping(value = "/subcategory{subCategoryId}", method = RequestMethod.GET)
+    public List<Product> subCategoryList(@PathVariable("subCategoryId") Long subCategoryId, PageParams pageParams) {
+        return productService.findBySubcategory(subCategoryId, pageParams);
+
+    }
+    
+    @RequestMapping(value = "/category{categoryId}", method = RequestMethod.GET)
+    public List<Product> categoryList(@PathVariable("categoryId") Long categoryId, PageParams pageParams) {
+        return productService.findByCategory(categoryId, pageParams);
 
     }
 

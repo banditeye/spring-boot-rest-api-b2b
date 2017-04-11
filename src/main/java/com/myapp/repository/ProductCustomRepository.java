@@ -5,6 +5,7 @@
  */
 package com.myapp.repository;
 
+import com.myapp.domain.Category;
 import com.myapp.domain.Product;
 import com.myapp.domain.Subcategory;
 import com.myapp.dto.PageParams;
@@ -17,4 +18,5 @@ import java.util.List;
  */
 public interface ProductCustomRepository {
       List<Product> findBySubcategory(Subcategory subcategory, PageParams pageParams);
+      List<Product> findByCategory(Category category, PageParams pageParams);
 }

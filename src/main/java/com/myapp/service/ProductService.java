@@ -23,8 +23,9 @@ public interface ProductService {
         void delete(Long id) throws NotPermittedException;
         Page<Product> findAll(PageRequest pageable);
         List<Product> findByUser(Long userId, PageParams pageParams);
-        List<ProductDTO> findMyProduct(PageParams pageParams);
-        List<Product> findBySubcategory(Long categoryId,PageParams pageParams);
+        List<Product> findMyProduct(PageParams pageParams);
+        List<Product> findBySubcategory(Long subCategoryId,PageParams pageParams);
+        List<Product> findByCategory(Long categoryId,PageParams pageParams);
         Product saveMyProduct(ProductParams params);
         Product updateMyProduct(Product product);
         

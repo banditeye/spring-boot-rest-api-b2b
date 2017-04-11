@@ -40,4 +40,9 @@ public class UserProductController {
     public @ResponseBody List<Product> list(@PathVariable("userId") Long userId, PageParams pageParams) {
         return productService.findByUser(userId, pageParams).stream().collect(Collectors.toList());
     }
+    
+     @RequestMapping(method = RequestMethod.GET, path = "/me/products")
+    public @ResponseBody List<Product> list(PageParams pageParams) {
+        return productService.findMyProduct(pageParams);
+    }
 }
