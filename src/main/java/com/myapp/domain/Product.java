@@ -90,7 +90,9 @@ public class Product {
         this.subcategory = subcategory;
     }
 
-  
+  @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private List<Basket> basket;
     
 
 }

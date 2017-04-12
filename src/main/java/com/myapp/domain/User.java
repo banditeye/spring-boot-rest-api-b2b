@@ -76,6 +76,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<Product> product;
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private List<Basket> basket;
+  
 
     @Override
     @JsonProperty("email")
