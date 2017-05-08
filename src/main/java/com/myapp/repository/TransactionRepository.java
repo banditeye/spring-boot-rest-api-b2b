@@ -5,15 +5,13 @@
  */
 package com.myapp.repository;
 
-import com.myapp.domain.Subcategory;
-import java.io.Serializable;
+import com.myapp.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Kamil
  */
-public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> {
-    
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     
 }

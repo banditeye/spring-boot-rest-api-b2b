@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface SubcategoryService {
     List<Subcategory> findAll();
+    List<Subcategory> getByIdCategory(Long id);
+     List<Subcategory> getByCategoryName(String name);
 }

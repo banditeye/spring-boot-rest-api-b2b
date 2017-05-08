@@ -11,6 +11,7 @@ import com.myapp.service.SubcategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +34,18 @@ public class SubcategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public @ResponseBody List<Subcategory> list() {
         return subcategoryService.findAll();
+
+    }
+    
+     @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public @ResponseBody List<Subcategory> listByProduct(@PathVariable("id") Long id) {
+        return subcategoryService.getByIdCategory(id);
+
+    }
+      
+     @RequestMapping(value = "name/{name}", method = RequestMethod.GET)
+    public @ResponseBody List<Subcategory> listByProductName(@PathVariable("name") String name) {
+        return subcategoryService.getByCategoryName(name);
 
     }
 

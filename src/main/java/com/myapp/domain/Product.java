@@ -66,7 +66,7 @@ public class Product {
     
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
-    private List<Transaction> transactional;
+    private List<TransactionProducts> transactional;
     
    @PrePersist
     protected void onCreate() {

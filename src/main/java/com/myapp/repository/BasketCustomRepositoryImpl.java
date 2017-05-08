@@ -15,11 +15,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Kamil
  */
+@Transactional
 @Repository
 public class BasketCustomRepositoryImpl implements BasketCustomRepository {
     
@@ -44,6 +46,24 @@ public class BasketCustomRepositoryImpl implements BasketCustomRepository {
                 )
                 .fetch();
         return list;
+    }
+    
+          @Override
+    public List<Basket> getByUserId2(User user) {
+        List<Basket> list=queryFactory.selectFrom(qBasket)
+                .where(qBasket.user.eq(user) 
+                
+                )
+                .fetch();
+        return list;
+    }
+  
+    @Override
+    public void deleteByUser(User user) {
+        queryFactory.delete(qBasket).where(qBasket.user.eq(user)).execute();
+           
+                
+               
     }
 
     

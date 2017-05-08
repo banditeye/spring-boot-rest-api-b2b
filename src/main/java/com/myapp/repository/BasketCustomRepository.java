@@ -18,5 +18,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface BasketCustomRepository {
     List<Basket> getByUserId(User user,PageParams pageParams);
+      List<Basket> getByUserId2(User user);
+    void deleteByUser(User user);
     
 }

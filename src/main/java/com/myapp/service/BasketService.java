@@ -17,5 +17,7 @@ import java.util.List;
 public interface BasketService {
     List<Basket> findByIdUser(PageParams pageParams);
     Basket addToBasket(Long id,Long pieces);
+    void deleteBasketByUser();
+    
     
 }

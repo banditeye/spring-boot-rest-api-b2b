@@ -5,15 +5,15 @@
  */
 package com.myapp.repository;
 
-import com.myapp.domain.Subcategory;
-import java.io.Serializable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.myapp.domain.Transaction;
+import com.myapp.domain.User;
+import com.myapp.dto.PageParams;
+import java.util.List;
 
 /**
  *
  * @author Kamil
  */
-public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> {
-    
-    
+public interface TransactionCustomRepository {
+    List<Transaction> getTransactionByUser(User user,PageParams pageParams);
 }

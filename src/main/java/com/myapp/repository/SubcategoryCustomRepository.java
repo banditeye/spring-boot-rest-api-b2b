@@ -5,15 +5,14 @@
  */
 package com.myapp.repository;
 
+import com.myapp.domain.Category;
 import com.myapp.domain.Subcategory;
-import java.io.Serializable;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 /**
  *
  * @author Kamil
  */
-public interface SubcategoryRepository extends JpaRepository<Subcategory, Long> {
-    
-    
+public interface SubcategoryCustomRepository {
+    List<Subcategory> getByIdCategory(Category category);
 }

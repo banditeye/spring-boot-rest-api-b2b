@@ -39,7 +39,6 @@ private final BasketRepository basketRepository;
 
 
 
-   
 
 
     @Override
@@ -60,6 +59,12 @@ private final BasketRepository basketRepository;
        Optional<Product> product= productRepository.findById(id);
        Basket basket=new Basket(id, pieces, user.get(), product.get());
        return basketRepository.save(basket);
+    }
+
+    @Override
+    public void deleteBasketByUser() {
+       Optional<User> user=securityContextService.currentUser();
+     basketCustomRepository.deleteByUser(user.get());
     }
 
    
