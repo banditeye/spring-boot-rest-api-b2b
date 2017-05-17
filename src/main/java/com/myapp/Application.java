@@ -13,8 +13,8 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 public class Application extends SpringBootServletInitializer {
 
     @SuppressWarnings("unused")
-    private static final Logger logger = LoggerFactory.getLogger(Application.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);  
+    
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
