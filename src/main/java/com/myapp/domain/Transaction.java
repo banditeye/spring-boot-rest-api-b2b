@@ -40,7 +40,7 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.EAGER)
     private User buyer;
 
-      
+          
     @NotNull
     private String state;
 

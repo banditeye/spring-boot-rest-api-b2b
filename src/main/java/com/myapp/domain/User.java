@@ -68,8 +68,8 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Transaction> buyer;
     
-
-    
+     
+       
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private List<Product> product;

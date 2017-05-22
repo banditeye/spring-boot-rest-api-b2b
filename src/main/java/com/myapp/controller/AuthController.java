@@ -1,4 +1,4 @@
-package com.myapp.controller;
+ package com.myapp.controller;
 
 import com.myapp.auth.TokenHandler;
 import com.myapp.service.SecurityContextService;

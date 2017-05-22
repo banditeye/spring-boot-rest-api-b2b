@@ -48,14 +48,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void save() {
             Optional<User> buyer=securityContextService.currentUser();
-            List<Basket> basketList=basketCustomRepository.getByUserId2(buyer.get());
-                          
-           
+            List<Basket> basketList=basketCustomRepository.getByUserId2(buyer.get());    
             
-                             
-              Transaction t=transactionRepository.save(new Transaction(buyer.get(), "rozpoczeta"));                                             
-                     
-              
+            Transaction t=transactionRepository.save(new Transaction(buyer.get(), "rozpoczeta"));                                             
+
               List<TransactionProducts> tp = basketList.stream()
                     .map(p ->transactionProductsRepository.save( new TransactionProducts(transactionRepository.getOne(t.getId()),p.getProduct(),p.getPieces())))
                     .collect(Collectors.toList());
@@ -67,6 +63,18 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> myTransactionList(PageParams pageParams) {
             Optional<User> user=securityContextService.currentUser();
             return transactionCustomRepository.getTransactionByUser(user.get(), pageParams);
+    }
+
+    @Override
+    public List<TransactionProducts> myTransactionProductList(Long id,PageParams pageParams) {
+            Transaction transaction=transactionRepository.findOne(id);
+            return transactionCustomRepository.getTransactionProductsByTransaction(transaction, pageParams);
+    }
+
+    @Override
+    public List<TransactionProducts> mySoldProductList(PageParams pageParams) {
+        Optional<User> user=securityContextService.currentUser();
+        return transactionCustomRepository.getMySoldProduct(user.get(), pageParams);
     }
 
 

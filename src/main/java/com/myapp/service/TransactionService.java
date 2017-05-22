@@ -6,6 +6,7 @@
 package com.myapp.service;
 
 import com.myapp.domain.Transaction;
+import com.myapp.domain.TransactionProducts;
 import com.myapp.dto.PageParams;
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface TransactionService {
     void save();
     List<Transaction> myTransactionList(PageParams pageParams);
+     List<TransactionProducts> myTransactionProductList(Long id,PageParams pageParams);
+        List<TransactionProducts> mySoldProductList(PageParams pageParams);
 }

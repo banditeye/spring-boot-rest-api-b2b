@@ -6,6 +6,7 @@
 package com.myapp.repository;
 
 import com.myapp.domain.Transaction;
+import com.myapp.domain.TransactionProducts;
 import com.myapp.domain.User;
 import com.myapp.dto.PageParams;
 import java.util.List;
@@ -16,4 +17,6 @@ import java.util.List;
  */
 public interface TransactionCustomRepository {
     List<Transaction> getTransactionByUser(User user,PageParams pageParams);
+    List<TransactionProducts> getTransactionProductsByTransaction(Transaction transaction,PageParams pageParams);
+    List<TransactionProducts> getMySoldProduct(User user,PageParams pageParams);
 }
