@@ -37,6 +37,4 @@ docker run -p 8080:8080 \
 
 [MIT](/LICENSE)
 
-## Thanks for
-Akirasosa
 
