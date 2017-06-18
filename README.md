@@ -1,5 +1,9 @@
 # Spring boot REST api for b2b
 
+#Example project exist on http://92.222.84.152:4200
+#Swagger documentation exist on http://92.222.84.152:8080/b2b-0.1.0/swagger-ui.html
+
+
 API documentation.
 
 ```
